@@ -55,7 +55,7 @@ def Choix():
     """ % (
         str(Fore.LIGHTBLUE_EX + "Serveur" + Fore.RESET)
     ))
-    choice = input(" Salon choisi :")
+    choice = input(" Salon choisi : ")
 
     #Général
     if choice == '1':
@@ -71,10 +71,9 @@ def Choix():
         [1] : Au hazard
         [2] : Nom au choix
         [3] : Nom de l'user du pc
-        [4] : Administrateur
 
         """)
-        nick_choice = input(" Votre choix :")
+        nick_choice = input(" Votre choix : ")
         if nick_choice == '1':
             url = "http://names.drycodes.com/10?nameOptions=all"
             data = requests.get(url).content.decode('utf-8')
@@ -86,77 +85,189 @@ def Choix():
             sleep(3.0)
             clear()
             print(Menu.design_ui)
-        if nick_choice == '2':
+            # Connecting To Server
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            ip = input(" Ip du serveur speak : ")
+            port = input(" Port du serveur speak : ")
+            client.connect((str(ip),int(port)))
+
+            # Listening to Server and Sending Nickname
+            def receive():
+                while True:
+                    global stop_thread
+                    if stop_thread:
+                        break
+                    try:
+                        # Receive Message From Server
+                        # If 'NICK' Send Nickname
+                        message = client.recv(1024).decode('utf-8')
+                        if message == 'NICK':
+                            client.send(nickname.encode('utf-8'))
+                            next_message = client.recv(1024).decode('utf-8')
+                            if next_message == 'PASS':
+                                client.send(password.encode('utf-8'))
+                                if client.recv(1024).decode('utf-8') == "NAHBRO":
+                                    print(" Conection fermée, mot de passe incorrect.")
+                                    stop_thread = True
+                                
+                            elif next_message == 'BAN':
+                                print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
+                                client.close()
+                                stop_thread = True
+                        else:
+                            print(" ")
+                            print(message)
+                            print(" ")
+                    except:
+                        # Close Connection When Error
+                        print(" Une erreure s'est produite!")
+                        client.close()
+                        break
+
+            # Sending Messages To Server
+            def write():
+                while True:
+                    if stop_thread:
+                        break
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    client.send(message.encode('utf-8'))
+
+            # Starting Threads For Listening And Writing
+            receive_thread = threading.Thread(target=receive)
+            receive_thread.start()
+
+            write_thread = threading.Thread(target=write)
+            write_thread.start()
+        elif nick_choice == '2':
             print(" ")
             name = input(" Nouveau nom d'utilisateur : ")
             nickname = str(name)
             sleep(3.0)
             clear()
             print(Menu.design_ui)
-        if nick_choice == '3':
+            # Connecting To Server
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            ip = input(" Ip du serveur speak : ")
+            port = input(" Port du serveur speak : ")
+            client.connect((str(ip),int(port)))
+
+            # Listening to Server and Sending Nickname
+            def receive():
+                while True:
+                    global stop_thread
+                    if stop_thread:
+                        break
+                    try:
+                        # Receive Message From Server
+                        # If 'NICK' Send Nickname
+                        message = client.recv(1024).decode('utf-8')
+                        if message == 'NICK':
+                            client.send(nickname.encode('utf-8'))
+                            next_message = client.recv(1024).decode('utf-8')
+                            if next_message == 'PASS':
+                                client.send(password.encode('utf-8'))
+                                if client.recv(1024).decode('utf-8') == "NAHBRO":
+                                    print(" Conection fermée, mot de passe incorrect.")
+                                    stop_thread = True
+                                
+                            elif next_message == 'BAN':
+                                print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
+                                client.close()
+                                stop_thread = True
+                        else:
+                            print(" ")
+                            print(message)
+                            print(" ")
+                    except:
+                        # Close Connection When Error
+                        print(" Une erreure s'est produite!")
+                        client.close()
+                        break
+
+            # Sending Messages To Server
+            def write():
+                while True:
+                    if stop_thread:
+                        break
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    client.send(message.encode('utf-8'))
+
+            # Starting Threads For Listening And Writing
+            receive_thread = threading.Thread(target=receive)
+            receive_thread.start()
+
+            write_thread = threading.Thread(target=write)
+            write_thread.start()
+        elif nick_choice == '3':
             nickname = str(user)
             print(" ")
             print(" Votre nom d'utilisateur : %s" % (nickname))
             sleep(3.0)
             clear()
             print(Menu.design_ui)
-        if nick_choice == '4':
-            nickname = str("admin")
-            password = input(" Mot de passe Administrateur : ")
+            # Connecting To Server
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            ip = input(" Ip du serveur speak : ")
+            port = input(" Port du serveur speak : ")
+            client.connect((str(ip),int(port)))
 
-        # Connecting To Server
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        ip = input(" Ip du serveur speak : ")
-        port = input(" Port du serveur speak : ")
-        client.connect((str(ip),int(port)))
-
-        # Listening to Server and Sending Nickname
-        def receive():
-            while True:
-                global stop_thread
-                if stop_thread:
-                    break
-                try:
-                    # Receive Message From Server
-                    # If 'NICK' Send Nickname
-                    message = client.recv(1024).decode('utf-8')
-                    if message == 'NICK':
-                        client.send(nickname.encode('utf-8'))
-                        next_message = client.recv(1024).decode('utf-8')
-                        if next_message == 'PASS':
-                            client.send(password.encode('utf-8'))
-                            if client.recv(1024).decode('utf-8') == "NAHBRO":
-                                print(" Conection fermée, mot de passe incorrect.")
+            # Listening to Server and Sending Nickname
+            def receive():
+                while True:
+                    global stop_thread
+                    if stop_thread:
+                        break
+                    try:
+                        # Receive Message From Server
+                        # If 'NICK' Send Nickname
+                        message = client.recv(1024).decode('utf-8')
+                        if message == 'NICK':
+                            client.send(nickname.encode('utf-8'))
+                            next_message = client.recv(1024).decode('utf-8')
+                            if next_message == 'PASS':
+                                client.send(password.encode('utf-8'))
+                                if client.recv(1024).decode('utf-8') == "NAHBRO":
+                                    print(" Conection fermée, mot de passe incorrect.")
+                                    stop_thread = True
+                                
+                            elif next_message == 'BAN':
+                                print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
+                                client.close()
                                 stop_thread = True
-                            
-                        elif next_message == 'BAN':
-                            print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
-                            client.close()
-                            stop_thread = True
-                    else:
-                        print(" ")
-                        print(message)
-                        print(" ")
-                except:
-                    # Close Connection When Error
-                    print(" Une erreure s'est produite!")
-                    client.close()
-                    break
+                        else:
+                            print(" ")
+                            print(message)
+                            print(" ")
+                    except:
+                        # Close Connection When Error
+                        print(" Une erreure s'est produite!")
+                        client.close()
+                        break
 
-        # Sending Messages To Server
-        def write():
-            while True:
-                if stop_thread:
-                    break
-                message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
-                client.send(message.encode('utf-8'))
+            # Sending Messages To Server
+            def write():
+                while True:
+                    if stop_thread:
+                        break
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    client.send(message.encode('utf-8'))
 
-        # Starting Threads For Listening And Writing
-        receive_thread = threading.Thread(target=receive)
-        receive_thread.start()
+            # Starting Threads For Listening And Writing
+            receive_thread = threading.Thread(target=receive)
+            receive_thread.start()
 
-        write_thread = threading.Thread(target=write)
-        write_thread.start()
+            write_thread = threading.Thread(target=write)
+            write_thread.start()
+        else:
+            print(" ")
+            print(Fore.LIGHTRED_EX + " Erreur :/" + Fore.RESET)
+            sleep(3.0)
+            clear()
+            print(Menu.design_ui)
+            Messages()
+            Choix()
+            pass
+
     else:
         print(" ")
         print(Fore.LIGHTRED_EX + " Erreur :/" + Fore.RESET)
@@ -165,5 +276,6 @@ def Choix():
         print(Menu.design_ui)
         Messages()
         Choix()
+        pass
 
 Choix()
