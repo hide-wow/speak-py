@@ -1,74 +1,77 @@
-import os, sys, time, terminaltables
-from terminaltables import SingleTable
-from colorama import Fore, init
-import getpass
-import subprocess as sp
+import socket
+import threading
+from colorama import Fore
 
-def times():
-	times = time.strftime("%H:%M:%S")
-	times = str(times)
-	return(times)
+# Connection Data
+host = ''
+port = 55555
 
-def clear():
-	if os.name == 'nt':
-		return os.system('cls')
-	else:
-		return os.system('clear')
+# Server Name
+servername = "hidden-fs"
 
-if os.name == 'nt':
-    init(convert=True)
-else:
-    init(convert=False)
+# Starting Server
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind((host, port))
+server.listen()
 
-class is_online():
-    ip = "192.168.122.60"
-    status,result = sp.getstatusoutput("ping -c1 -w2 " + ip)
-    def check_online():
-        if status == 0: 
-            print(Fore.LIGHTGREEN_EX + "ONLINE" + Fore.RESET)
-        else:
-            print(Fore.LIGHTRED_EX + "OFFLINE" + Fore.RESET)
+# Lists For Clients and Their Nicknames
+clients = []
+nicknames = []
 
-user = getpass.getuser()
+# Sending Messages To All Connected Clients
+def broadcast(message):
+    for client in clients:
+        client.send(message)
 
-smoke_layer1 = (Fore.LIGHTBLACK_EX+'('+Fore.RESET)
-smoke_layer2 = (Fore.LIGHTBLACK_EX+')'+Fore.RESET)
+# Handling Messages From Clients
+def handle(client):
+    while True:
+        try:
+            # Broadcasting Messages
+            message = client.recv(1024)
+            broadcast(message)
+        except:
+            # Removing And Closing Clients
+            if client in clients:
+                index = clients.index(client)
+                clients.remove(client)
+                client.close()
+                nickname = nicknames[index]
+                broadcast(f' {(Fore.LIGHTBLUE_EX + nickname + Fore.RESET)} A Quitté le salon speak ({(Fore.LIGHTBLUE_EX + servername + Fore.RESET)})'.encode('utf-8'))
+                nicknames.remove(nickname)
+                break
 
-class Menu():
-    design_txt_layer_1 = ("                          _    ")
-    design_txt_layer_2 = ("     ___ _ __   ___  __ _| | __")
-    design_txt_layer_3 = ("    / __| '_ \ / _ \/ _` | |/ /")
-    design_txt_layer_4 = ("    \__ \ |_) |  __/ (_| |   < ")
-    design_txt_layer_5 = ("    |___/ .__/ \___|\__,_|_|\_\ ")
-    design_txt_layer_6 = ("        |_|                    ")
-    design_ui = ("""
-         %s
-        %s
-       __%s__
-    C\|     \  %s
-      \     /  %s
-       \___/   %s
+# Receiving / Listening Function
+def receive():
+    while True:
+        # Accept Connection
+        client, address = server.accept()
+        print("Connected with {}".format(str(address)))
 
-%s
-%s
-%s
-%s
-%s
-%s
+        # Request And Store Nickname
+        client.send('NICK'.encode('utf-8'))
+        nickname = client.recv(1024).decode('utf-8')
 
-    """ %(
-            str(smoke_layer2),
-            str(smoke_layer1),
-            str(smoke_layer2),
-            str("     Heure : [" + Fore.LIGHTBLUE_EX + times() + Fore.RESET + str("]")),
-            str("     Utilisateur : [" + Fore.LIGHTBLUE_EX + str(user) + Fore.RESET + str("]")),
-            str("     Statut Serveur : [" + Fore.LIGHTGREEN_EX + str("ONLINE") + Fore.RESET + str("]")),
-            str(design_txt_layer_1),
-            str(design_txt_layer_2),
-            str(design_txt_layer_3),
-            str(design_txt_layer_4),
-            str(design_txt_layer_5),
-            str(design_txt_layer_6)
+        if nickname == 'admin':
+            client.send('PASS'.encode('utf-8'))
+            password = client.recv(1024).decode('utf-8')
 
-         ))
-clear()
+            if password != 'bruteforcepasfd@166':
+                client.send("NAHBRO".encode('utf-8'))
+                client.close()
+                continue
+
+        nicknames.append(nickname)
+        clients.append(client)
+
+        # Print And Broadcast Nickname
+        print("Nickname is {}".format(nickname))
+        broadcast(f" {(Fore.LIGHTBLUE_EX + nickname + Fore.RESET)} A Rejoint le server speak ({(Fore.LIGHTBLUE_EX + servername + Fore.RESET)})".encode('utf-8'),)
+        client.send(f' Connecté au serveur {(Fore.LIGHTBLUE_EX + servername + Fore.RESET)}'.encode('utf-8'))
+
+        # Start Handling Thread For Client
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
+
+print("Serveur Speak Ouvert et attends des connections")
+receive()
