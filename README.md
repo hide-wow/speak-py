@@ -21,7 +21,7 @@ cd speak
 pip3 install requierements.txt
 ```
 ```
-python3 speak.pyc
+python3 speak.py
 ```
 
 (Windows)
@@ -32,5 +32,5 @@ cd speak
 pip install requierements.txt
 ```
 ```
-python speak.pyc
+python speak.py
 ```
