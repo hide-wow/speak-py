@@ -4,8 +4,15 @@
   <a href="https://github.com/Steraky/speak">
     <img src="img/logo_size.jpg" alt="Logo" width="480" height="80">
   </a>
+  
+  <h3 align="center">Speak Project</h3>
+  
+<!-- ABOUT THE PROJECT -->
+## About Speak
 
-# speak
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+# Documentation
 
 To use speak you wil need:
 
