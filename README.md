@@ -13,7 +13,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Steraky/speak">
-    <img src="img/unknown.png" alt="Logo" width="480" height="80">
+    <img src="img/unknown.png" alt="Logo" width="382" height="234">
   </a>
 
 Info:
