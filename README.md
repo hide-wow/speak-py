@@ -19,9 +19,11 @@
 Info:
 * Speak has been coded by Steraky, so yeah, im the only developper on this project :smile:.
 * This is the only message tool who is in a terminal and who is with any logs !
-* I've coded this with python. 
 
-# Documentation
+### Coded With
+* [Python](https://www.python.org/)
+
+## Documentation
 
 To use speak you wil need:
 
