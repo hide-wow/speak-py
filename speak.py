@@ -35,9 +35,9 @@ def Messages():
     TABLE_DATA.append(private_messages)
     private_messages = ("News :", Fore.LIGHTBLUE_EX + "Serveur speak (par ip)" + Fore.RESET)
     TABLE_DATA.append(private_messages) 
-    private_messages = (" ", Fore.LIGHTBLUE_EX + "Code obfuscate" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLUE_EX + "Fix du bug majeur des inputs" + Fore.RESET)
     TABLE_DATA.append(private_messages)
-    private_messages = (" ", Fore.LIGHTBLUE_EX + "Fix de 2 - 3 bugs" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLUE_EX + "Fix de 2 - 3 bugs non grave" + Fore.RESET)
     TABLE_DATA.append(private_messages)
     private_messages = ("----------------", "-----------------------" + Fore.RESET)
     TABLE_DATA.append(private_messages)
@@ -74,6 +74,7 @@ def Choix():
 
         """)
         nick_choice = input(" Votre choix : ")
+
         if nick_choice == '1':
             url = "http://names.drycodes.com/10?nameOptions=all"
             data = requests.get(url).content.decode('utf-8')
@@ -129,7 +130,7 @@ def Choix():
                 while True:
                     if stop_thread:
                         break
-                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(""))
                     client.send(message.encode('utf-8'))
 
             # Starting Threads For Listening And Writing
@@ -138,6 +139,7 @@ def Choix():
 
             write_thread = threading.Thread(target=write)
             write_thread.start()
+
         elif nick_choice == '2':
             print(" ")
             name = input(" Nouveau nom d'utilisateur : ")
@@ -189,7 +191,7 @@ def Choix():
                 while True:
                     if stop_thread:
                         break
-                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(""))
                     client.send(message.encode('utf-8'))
 
             # Starting Threads For Listening And Writing
@@ -198,6 +200,7 @@ def Choix():
 
             write_thread = threading.Thread(target=write)
             write_thread.start()
+
         elif nick_choice == '3':
             nickname = str(user)
             print(" ")
@@ -249,7 +252,7 @@ def Choix():
                 while True:
                     if stop_thread:
                         break
-                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, input(''))
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(""))
                     client.send(message.encode('utf-8'))
 
             # Starting Threads For Listening And Writing
