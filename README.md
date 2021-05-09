@@ -17,8 +17,8 @@
   </a>
 
 Info:
-* Speak has been coded by Steraky, so yeah, im the only developper on this project :smile:.
-* This is the only message tool who is in a terminal and who is with any logs !
+* Speak was coded by Steraky, so yes I'm the only developer on this project :smile:.
+* It is the only messaging tool on terminal and without logs!
 
 ### Coded With
 * [Python](https://www.python.org/)
