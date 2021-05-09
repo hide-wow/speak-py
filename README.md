@@ -68,3 +68,7 @@ How to install :
   ```
   python speak.py
   ```
+
+# Need a Speak server ?
+
+* Contact me on discord : hide#2000
