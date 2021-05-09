@@ -23,15 +23,13 @@ Info:
 ### Coded With
 * [Python](https://www.python.org/)
 
-## Documentation
+## Getting Started
 
-To use speak you wil need:
+### Prerequisites:
 
-```
-Python3.x
-pip3
-git
-```
+* ```Python3.x```
+* ```pip3```
+* ```git```
 
 To install speak you will do this :
 
