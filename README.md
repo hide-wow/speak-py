@@ -38,33 +38,33 @@ How to install :
 * Linux
 
 1. Clone the Github Repository
-```
-git clone https://github.com/Steraky/speak
-```
+  ```
+  git clone https://github.com/Steraky/speak
+  ```
 2. Go on the speak file
-```
-cd speak
-```
+  ```
+  cd speak
+  ```
 3. Install the requirements using pip
-```
-pip3 install requierements.txt
-```
+  ```
+  pip3 install requierements.txt
+  ```
 4. Launch speak
-```
-python3 speak.py
-```
+  ```
+  python3 speak.py
+  ```
 
 * Windows
 
 1. Go on the speak file
-```
-cd speak
-```
+  ```
+  cd speak
+  ```
 2. Install the requirements using pip
-```
-pip install requierements.txt
-```
+  ```
+  pip install requierements.txt
+  ```
 3. Launch speak
-```
-python speak.py
-```
+  ```
+  python speak.py
+  ```
