@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Steraky/speak">
-    <img src="img/logo.gif" alt="Logo" width="468" height="60">
+    <img src="img/speak.gif" alt="Logo" width="468" height="60">
   </a>
   
 <!-- ABOUT THE PROJECT -->
