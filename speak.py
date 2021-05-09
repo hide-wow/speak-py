@@ -95,6 +95,8 @@ def Choix():
             ip = input(" Ip du serveur speak : ")
             print(" ")
             port = input(" Port du serveur speak : ")
+            clear()
+            print(Menu.design_ui)
             print(" ")
             client.connect((str(ip),int(port)))
 
@@ -159,6 +161,8 @@ def Choix():
             ip = input(" Ip du serveur speak : ")
             print(" ")
             port = input(" Port du serveur speak : ")
+            clear()
+            print(Menu.design_ui)
             print(" ")
             client.connect((str(ip),int(port)))
 
@@ -223,6 +227,8 @@ def Choix():
             ip = input(" Ip du serveur speak : ")
             print(" ")
             port = input(" Port du serveur speak : ")
+            clear()
+            print(Menu.design_ui)
             print(" ")
             client.connect((str(ip),int(port)))
 
