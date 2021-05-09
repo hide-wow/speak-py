@@ -10,7 +10,16 @@
 <!-- ABOUT THE PROJECT -->
 ## About Speak
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<br />
+<p align="center">
+  <a href="https://github.com/Steraky/speak">
+    <img src="img/unknown.png" alt="Logo" width="480" height="80">
+  </a>
+
+Info:
+* Speak has been coded by Steraky, so yeah, im the only developper on this project :smile:.
+* This is the only message tool who is in a terminal and who is with any logs !
+* I've coded this with python. 
 
 # Documentation
 
