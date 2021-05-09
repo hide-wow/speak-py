@@ -6,6 +6,7 @@ from colorama import Fore, init
 from time import sleep
 import random
 import getpass
+from rpc import speakrpc
 
 stop_thread = False
 
@@ -21,6 +22,8 @@ def clear():
 		return os.system('cls')
 	else:
 		return os.system('clear')
+
+clear()
 
 if os.name == 'nt':
     init(convert=True)
