@@ -36,28 +36,27 @@ def Messages():
     TABLE_DATA = []
     private_messages = (Fore.LIGHTYELLOW_EX + "Speak Main" + Fore.RESET, "Nom D'utilisateur : " + user)
     TABLE_DATA.append(private_messages)
-    private_messages = ("News :", Fore.LIGHTBLUE_EX + "Serveur speak (par ip)" + Fore.RESET)
+    private_messages = ("News :", Fore.LIGHTBLACK_EX + "Serveur speak (par ip)" + Fore.RESET)
     TABLE_DATA.append(private_messages) 
-    private_messages = (" ", Fore.LIGHTBLUE_EX + "Fix du bug majeur des inputs" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Fix du bug majeur des inputs" + Fore.RESET)
     TABLE_DATA.append(private_messages)
-    private_messages = (" ", Fore.LIGHTBLUE_EX + "Fix de 2 - 3 bugs non grave" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Fix de 2 - 3 bugs non grave" + Fore.RESET)
     TABLE_DATA.append(private_messages)
     private_messages = ("----------------", "-----------------------" + Fore.RESET)
     TABLE_DATA.append(private_messages)
-    private_messages = ("Conversations :", Fore.LIGHTBLUE_EX + "Serveur" + Fore.LIGHTBLUE_EX + " (" + Fore.LIGHTRED_EX + "1" + Fore.LIGHTBLUE_EX + ")" + Fore.RESET)
+    private_messages = ("Conversations :", Fore.LIGHTBLACK_EX + "Serveur" + Fore.LIGHTBLACK_EX + " (" + Fore.LIGHTRED_EX + "1" + Fore.LIGHTBLACK_EX + ")" + Fore.RESET)
     TABLE_DATA.append(private_messages)
     table = SingleTable(TABLE_DATA)
     print("\n"+table.table)
 Messages()
 
 def Choix():
-    print("""
+    print(f"""
 
-        [1] %s
+    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] Connection a un serveur speak
 
-    """ % (
-        str(Fore.LIGHTBLUE_EX + "Serveur" + Fore.RESET)
-    ))
+    """
+    )
     choice = input(" Salon choisi : ")
 
     #Général
@@ -68,12 +67,12 @@ def Choix():
         import threading
 
         # Choosing Nickname
-        print("""
+        print(f"""
         Nom d'utilisateur :
 
-        [1] : Au hazard
-        [2] : Nom au choix
-        [3] : Nom de l'user du pc
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
+        [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
+        [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
 
         """)
         nick_choice = input(" Votre choix : ")
