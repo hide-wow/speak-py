@@ -20,15 +20,6 @@ if os.name == 'nt':
 else:
     init(convert=False)
 
-class is_online():
-    ip = "192.168.122.60"
-    status,result = sp.getstatusoutput("ping -c1 -w2 " + ip)
-    def check_online():
-        if status == 0: 
-            print(Fore.LIGHTGREEN_EX + "ONLINE" + Fore.RESET)
-        else:
-            print(Fore.LIGHTRED_EX + "OFFLINE" + Fore.RESET)
-
 user = getpass.getuser()
 
 smoke_layer1 = (Fore.LIGHTBLACK_EX+'('+Fore.RESET)
