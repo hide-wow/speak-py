@@ -71,7 +71,7 @@ def Choix():
         print(f"""
         Nom d'utilisateur :
 
-        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard ({Fore.LIGHTRED_EX + str("API DOWN :/") + Fore.RESET})
         [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
         [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
 
