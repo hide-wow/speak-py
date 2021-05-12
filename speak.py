@@ -7,6 +7,7 @@ from time import sleep
 import random
 import getpass
 from rpc import speakrpc
+import base64
 
 stop_thread = False
 
@@ -97,8 +98,7 @@ def Choix():
             clear()
             print(Menu.design_ui)
             print(" ")
-            client.connect((str(ip),int(port)))
-
+            server_connection = client.connect((str(ip),int(port)))
             # Listening to Server and Sending Nickname
             def receive():
                 while True:
@@ -112,19 +112,15 @@ def Choix():
                         if message == 'NICK':
                             client.send(nickname.encode('utf-8'))
                             next_message = client.recv(1024).decode('utf-8')
-                            if next_message == 'PASS':
-                                client.send(password.encode('utf-8'))
-                                if client.recv(1024).decode('utf-8') == "NAHBRO":
-                                    print(" Conection fermée, mot de passe incorrect.")
-                                    stop_thread = True
-                                
-                            elif next_message == 'BAN':
+                            if next_message == 'BAN':
                                 print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
                                 client.close()
                                 stop_thread = True
                         else:
                             print(" ")
-                            print(message)
+                            messagedecrypt = base64.b32decode(message)
+                            messagedecode = messagedecrypt.decode('utf-8')
+                            print(messagedecode)
                             print(" ")
                     except:
                         # Close Connection When Error
@@ -138,7 +134,9 @@ def Choix():
                     if stop_thread:
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
-                    client.send(message.encode('utf-8'))
+                    encoded_message = message.encode('utf-8')
+                    msgcrypt = base64.b32encode(encoded_message)
+                    client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
             receive_thread = threading.Thread(target=receive)
@@ -163,8 +161,7 @@ def Choix():
             clear()
             print(Menu.design_ui)
             print(" ")
-            client.connect((str(ip),int(port)))
-
+            server_connection = client.connect((str(ip),int(port)))
             # Listening to Server and Sending Nickname
             def receive():
                 while True:
@@ -178,19 +175,15 @@ def Choix():
                         if message == 'NICK':
                             client.send(nickname.encode('utf-8'))
                             next_message = client.recv(1024).decode('utf-8')
-                            if next_message == 'PASS':
-                                client.send(password.encode('utf-8'))
-                                if client.recv(1024).decode('utf-8') == "NAHBRO":
-                                    print(" Conection fermée, mot de passe incorrect.")
-                                    stop_thread = True
-                                
-                            elif next_message == 'BAN':
+                            if next_message == 'BAN':
                                 print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
                                 client.close()
                                 stop_thread = True
                         else:
                             print(" ")
-                            print(message)
+                            messagedecrypt = base64.b32decode(message)
+                            messagedecode = messagedecrypt.decode('utf-8')
+                            print(messagedecode)
                             print(" ")
                     except:
                         # Close Connection When Error
@@ -204,7 +197,9 @@ def Choix():
                     if stop_thread:
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
-                    client.send(message.encode('utf-8'))
+                    encoded_message = message.encode('utf-8')
+                    msgcrypt = base64.b32encode(encoded_message)
+                    client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
             receive_thread = threading.Thread(target=receive)
@@ -229,8 +224,7 @@ def Choix():
             clear()
             print(Menu.design_ui)
             print(" ")
-            client.connect((str(ip),int(port)))
-
+            server_connection = client.connect((str(ip),int(port)))
             # Listening to Server and Sending Nickname
             def receive():
                 while True:
@@ -244,19 +238,15 @@ def Choix():
                         if message == 'NICK':
                             client.send(nickname.encode('utf-8'))
                             next_message = client.recv(1024).decode('utf-8')
-                            if next_message == 'PASS':
-                                client.send(password.encode('utf-8'))
-                                if client.recv(1024).decode('utf-8') == "NAHBRO":
-                                    print(" Conection fermée, mot de passe incorrect.")
-                                    stop_thread = True
-                                
-                            elif next_message == 'BAN':
+                            if next_message == 'BAN':
                                 print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
                                 client.close()
                                 stop_thread = True
                         else:
                             print(" ")
-                            print(message)
+                            messagedecrypt = base64.b32decode(message)
+                            messagedecode = messagedecrypt.decode('utf-8')
+                            print(messagedecode)
                             print(" ")
                     except:
                         # Close Connection When Error
@@ -270,7 +260,9 @@ def Choix():
                     if stop_thread:
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
-                    client.send(message.encode('utf-8'))
+                    encoded_message = message.encode('utf-8')
+                    msgcrypt = base64.b32encode(encoded_message)
+                    client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
             receive_thread = threading.Thread(target=receive)
