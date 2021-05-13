@@ -39,9 +39,9 @@ def Messages():
     TABLE_DATA.append(private_messages)
     private_messages = ("News :", Fore.LIGHTBLACK_EX + "Grosse Update :" + Fore.RESET)
     TABLE_DATA.append(private_messages) 
-    private_messages = (" ", Fore.LIGHTBLACK_EX + "Encrypté de bout en bout" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Encrypté de bout en bout !" + Fore.RESET)
     TABLE_DATA.append(private_messages)
-    private_messages = (" ", Fore.LIGHTBLACK_EX + "Problème Api des noms randoms :/" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Api fixed" + Fore.RESET)
     TABLE_DATA.append(private_messages)
     private_messages = ("----------------", "-----------------------" + Fore.RESET)
     TABLE_DATA.append(private_messages)
@@ -71,7 +71,7 @@ def Choix():
         print(f"""
         Nom d'utilisateur :
 
-        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard ({Fore.LIGHTRED_EX + str("Soucis / Bugs :/") + Fore.RESET})
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
         [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
         [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
 
@@ -118,7 +118,7 @@ def Choix():
                                 stop_thread = True
                         else:
                             print(" ")
-                            messagedecrypt = base64.b32decode(message)
+                            messagedecrypt = base64.b85decode(message)
                             messagedecode = messagedecrypt.decode('utf-8')
                             print(messagedecode)
                             print(" ")
@@ -135,7 +135,7 @@ def Choix():
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
                     encoded_message = message.encode('utf-8')
-                    msgcrypt = base64.b32encode(encoded_message)
+                    msgcrypt = base64.b85encode(encoded_message)
                     client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
@@ -181,7 +181,7 @@ def Choix():
                                 stop_thread = True
                         else:
                             print(" ")
-                            messagedecrypt = base64.b32decode(message)
+                            messagedecrypt = base64.b85decode(message)
                             messagedecode = messagedecrypt.decode('utf-8')
                             print(messagedecode)
                             print(" ")
@@ -198,7 +198,7 @@ def Choix():
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
                     encoded_message = message.encode('utf-8')
-                    msgcrypt = base64.b32encode(encoded_message)
+                    msgcrypt = base64.b85encode(encoded_message)
                     client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
@@ -244,7 +244,7 @@ def Choix():
                                 stop_thread = True
                         else:
                             print(" ")
-                            messagedecrypt = base64.b32decode(message)
+                            messagedecrypt = base64.b85decode(message)
                             messagedecode = messagedecrypt.decode('utf-8')
                             print(messagedecode)
                             print(" ")
@@ -261,7 +261,7 @@ def Choix():
                         break
                     message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
                     encoded_message = message.encode('utf-8')
-                    msgcrypt = base64.b32encode(encoded_message)
+                    msgcrypt = base64.b85encode(encoded_message)
                     client.send(msgcrypt)
 
             # Starting Threads For Listening And Writing
