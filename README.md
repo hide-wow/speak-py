@@ -17,7 +17,7 @@
   </a>
 
 Info:
-* Speak was coded by Steraky, so yes I'm the only developer on this project :smile:.
+* Speak was coded by Steraky, so yes I'm the only developer on this project.
 * It is the only messaging tool on terminal and without logs!
 
 ### Coded With
