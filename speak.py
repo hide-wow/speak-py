@@ -143,7 +143,7 @@ def Choix():
                 while True:
                     if stop_thread:
                         break
-                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
                     encoded_message = message.encode('utf-8')
                     msgcrypt = base64.b85encode(encoded_message)
                     client.send(msgcrypt)
@@ -222,7 +222,7 @@ def Choix():
                     while True:
                         if stop_thread:
                             break
-                        message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
+                        message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
                         encoded_message = message.encode('utf-8')
                         msgcrypt = base64.b85encode(encoded_message)
                         client.send(msgcrypt)
@@ -291,7 +291,7 @@ def Choix():
                 while True:
                     if stop_thread:
                         break
-                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous :"+ Fore.RESET))
+                    message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
                     encoded_message = message.encode('utf-8')
                     msgcrypt = base64.b85encode(encoded_message)
                     client.send(msgcrypt)
