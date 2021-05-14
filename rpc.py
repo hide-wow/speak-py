@@ -4,6 +4,12 @@ import sys, os, time, random
 from colorama import Fore, init
 from time import sleep
 
+client_id = "817762863514517524"
+rpc = Presence(client_id)
+
+class stats():
+    rpcstat = False
+
 def clear():
 	if os.name == 'nt':
 		return os.system('cls')
@@ -22,10 +28,9 @@ def speakrpc():
     print(" ")
     rpc_choice = input(" RPC : ")
     if rpc_choice == '1':
-        client_id = "817762863514517524"
-        rpc = Presence(client_id)
+        stats.rpcstat = True
         rpc.connect()
-        rpc.update(state="terminal chat",large_image="logo",large_text="speak")
+        rpc.update(state="terminal chat",large_image="logo",large_text="secure, encrypted", start=time.time())
         pass
     elif rpc_choice == '2':
         pass
@@ -34,4 +39,8 @@ def speakrpc():
         sleep(3.0)
         speakrpc()
 
-speakrpc()
+def speakchatrpc(servername,username):
+    if stats.rpcstat == True:
+        rpc.update(state=f"In a server : {servername}",details=f"Name is : {username}",large_image="logo",large_text="secure, encrypted", start=time.time())
+    else:
+        pass
