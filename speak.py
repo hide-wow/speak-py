@@ -6,8 +6,10 @@ from colorama import Fore, init
 from time import sleep
 import random
 import getpass
-from rpc import speakrpc
+from rpc import speakrpc, stats, speakchatrpc
 import base64
+
+speakrpc()
 
 stop_thread = False
 
@@ -99,6 +101,10 @@ def Choix():
             print(Menu.design_ui)
             print(" ")
             server_connection = client.connect((str(ip),int(port)))
+            serv = client.recv(1024).decode('utf-8')
+            decryptserv = base64.b85decode(serv)
+            decodeserv = decryptserv.decode('utf-8')
+            speakchatrpc(servername=decodeserv,username=nickname)
             # Listening to Server and Sending Nickname
             def receive():
                 while True:
@@ -174,6 +180,10 @@ def Choix():
                 print(Menu.design_ui)
                 print(" ")
                 server_connection = client.connect((str(ip),int(port)))
+                serv = client.recv(1024).decode('utf-8')
+                decryptserv = base64.b85decode(serv)
+                decodeserv = decryptserv.decode('utf-8')
+                speakchatrpc(servername=decodeserv,username=nickname)
                 # Listening to Server and Sending Nickname
                 def receive():
                     while True:
@@ -239,6 +249,10 @@ def Choix():
             print(Menu.design_ui)
             print(" ")
             server_connection = client.connect((str(ip),int(port)))
+            serv = client.recv(1024).decode('utf-8')
+            decryptserv = base64.b85decode(serv)
+            decodeserv = decryptserv.decode('utf-8')
+            speakchatrpc(servername=decodeserv,username=nickname)
             # Listening to Server and Sending Nickname
             def receive():
                 while True:
