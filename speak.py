@@ -13,6 +13,8 @@ speakrpc()
 
 stop_thread = False
 
+warn = ("  [" + Fore.LIGHTRED_EX + "!" + Fore.RESET + "] ")
+
 user = getpass.getuser()
 
 def times():
@@ -73,7 +75,7 @@ def Choix():
         print(f"""
         Nom d'utilisateur :
 
-        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard ({Fore.LIGHTRED_EX + str("Soucis / Bugs :/") + Fore.RESET})
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
         [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
         [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
 
@@ -132,7 +134,7 @@ def Choix():
                             print(" ")
                     except:
                         # Close Connection When Error
-                        print(" Une erreure s'est produite!")
+                        print(warn + "Une erreure s'est produite!")
                         client.close()
                         break
 
@@ -159,7 +161,7 @@ def Choix():
             nickname = str(name)
             if nickname == '':
                 print(" ")
-                print(Fore.LIGHTRED_EX + " Erreur :/" + Fore.RESET)
+                print("  " + warn + "Erreur x-x")
                 sleep(3.0)
                 clear()
                 print(Menu.design_ui)
@@ -211,7 +213,7 @@ def Choix():
                                 print(" ")
                         except:
                             # Close Connection When Error
-                            print(" Une erreure s'est produite!")
+                            print(warn + "Une erreure s'est produite!")
                             client.close()
                             break
 
@@ -280,7 +282,7 @@ def Choix():
                             print(" ")
                     except:
                         # Close Connection When Error
-                        print(" Une erreure s'est produite!")
+                        print(warn + "Une erreure s'est produite!")
                         client.close()
                         break
 
@@ -302,7 +304,7 @@ def Choix():
             write_thread.start()
         else:
             print(" ")
-            print(Fore.LIGHTRED_EX + " Erreur :/" + Fore.RESET)
+            print("  " + warn + "Erreur x-x")
             sleep(3.0)
             clear()
             print(Menu.design_ui)
@@ -312,7 +314,7 @@ def Choix():
 
     else:
         print(" ")
-        print(Fore.LIGHTRED_EX + " Erreur :/" + Fore.RESET)
+        print("  " + warn + "Erreur x-x")
         sleep(3.0)
         clear()
         print(Menu.design_ui)
