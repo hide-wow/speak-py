@@ -9,6 +9,8 @@ import getpass
 from rpc import speakrpc, stats, speakchatrpc
 import base64
 
+version = "DISCORDi"
+
 speakrpc()
 
 stop_thread = False
@@ -99,6 +101,7 @@ def Choix():
             print(Menu.design_ui)
             print(" ")
             server_connection = client.connect((str(ip),int(port)))
+            ver = client.send(version.encode('utf-8'))
             serv = client.recv(1024).decode('utf-8')
             decryptserv = base64.b85decode(serv)
             decodeserv = decryptserv.decode('utf-8')
@@ -178,6 +181,7 @@ def Choix():
                 print(Menu.design_ui)
                 print(" ")
                 server_connection = client.connect((str(ip),int(port)))
+                ver = client.send(version.encode('utf-8'))
                 serv = client.recv(1024).decode('utf-8')
                 decryptserv = base64.b85decode(serv)
                 decodeserv = decryptserv.decode('utf-8')
@@ -247,6 +251,7 @@ def Choix():
             print(Menu.design_ui)
             print(" ")
             server_connection = client.connect((str(ip),int(port)))
+            ver = client.send(version.encode('utf-8'))
             serv = client.recv(1024).decode('utf-8')
             decryptserv = base64.b85decode(serv)
             decodeserv = decryptserv.decode('utf-8')
