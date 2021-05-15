@@ -33,7 +33,7 @@ def speakrpc():
     if rpc_choice == '1':
         stats.rpcstat = True
         rpc.connect()
-        rpc.update(state="terminal chat",large_image="logo",large_text="secure, encrypted", start=time.time())
+        rpc.update(state="In the menus",details=f"terminal chat",large_image="logo",large_text="secure, encrypted", start=time.time())
         pass
     elif rpc_choice == '2':
         pass
