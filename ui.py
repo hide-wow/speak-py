@@ -52,7 +52,7 @@ class Menu():
             str(smoke_layer1),
             str(smoke_layer2),
             str("     Heure : [" + Fore.LIGHTBLUE_EX + times() + Fore.RESET + str("]")),
-            str("     Utilisateur : [" + Fore.LIGHTBLUE_EX + str(user) + Fore.RESET + str("]")),
+            str("     Utilisateur (PC) : [" + Fore.LIGHTBLUE_EX + str(user) + Fore.RESET + str("]")),
             str("     Statut Serveur : [" + Fore.LIGHTGREEN_EX + str("ONLINE") + Fore.RESET + str("]")),
             str(design_txt_layer_1),
             str(design_txt_layer_2),
