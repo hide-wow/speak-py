@@ -69,6 +69,6 @@ How to install :
   python speak.pyc
   ```
 
-## Need a Speak server ?
+## Need a Speak server or help ?
 
-* Contact me on discord : hide#2000
+* Our discord : discord.gg/6y9WBktEbw
