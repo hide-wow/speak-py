@@ -1,0 +1,4 @@
+requests
+terminaltables
+colorama
+pypresence
