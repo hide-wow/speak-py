@@ -1,0 +1,5 @@
+requests
+terminaltables
+colorama
+pypresence
+pycryptodome
