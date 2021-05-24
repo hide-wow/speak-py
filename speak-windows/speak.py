@@ -67,10 +67,16 @@ def client_speak(nickname):
     print(" ")
     server_connection = client.connect((str(ip),int(port)))
     ver = client.send(version.encode('utf-8'))
+
     serv = client.recv(1024).decode('utf-8')
     decryptserv = base64.b85decode(serv)
     decodeserv = decryptserv.decode('utf-8')
-    speakchatrpc(servername=decodeserv,username=nickname)
+
+    description = client.recv(1024).decode('utf-8')
+    decrypt_description = base64.b85decode(description)
+    decode_description = decrypt_description.decode('utf-8')
+
+    speakchatrpc(servername=decodeserv,username=nickname,description=decode_description)
     # Listening to Server and Sending Nickname
     def receive():
         while True:
@@ -184,7 +190,7 @@ def Choix():
             clear()
             print(Menu.design_ui)
             client_speak(nickname=nickname)
-            
+
         else:
             print(" ")
             print("  " + warn + "Erreur x-x")
