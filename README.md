@@ -51,7 +51,7 @@ How to install :
   ```
 4. Launch speak
   ```
-  python3 speak.pyc
+  python3 speak.py
   ```
 
 * Windows
@@ -66,9 +66,9 @@ How to install :
   ```
 3. Launch speak
   ```
-  python speak.pyc
+  python speak.py
   ```
 
 ## Need a Speak server or help ?
 
-* Our discord : discord.gg/6y9WBktEbw
+* Our discord : discord.gg/avPxk3uwFQ
