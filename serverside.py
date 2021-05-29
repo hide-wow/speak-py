@@ -23,10 +23,10 @@ Quit4 = " {} a quitter, t'facon, tu puais"
 Quit5 = " Bon, {} nous laisse en plan :/"
 
 # Server Name
-servername = "Speak.py non-official"
+servername = "Speak.py Official"
 
 # Server Stat
-serverstat = "Serveur Non-Officiel de Speak.py"
+serverstat = "Serveur Officiel de Speak.py"
 
 # Starting Server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -83,7 +83,7 @@ def receive():
         version = client.recv(1024).decode('utf-8')
         print(f"Version is : {version}")
         if version == 'HOST_CHECK':
-            print(Fore.LIGHTGREEN_EX + " Checking The Server")
+            print(Fore.LIGHTGREEN_EX + "Checking The Server" + Fore.RESET)
             pass
         else:
             if version == 'DISCORDi':
