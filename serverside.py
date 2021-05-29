@@ -3,10 +3,24 @@ import threading
 from colorama import Fore
 import base64
 from time import sleep
+import random
 
 # Connection Data
 host = ''
 port = 6677
+
+Msg1 = " Un {} Sauvage a join !"
+Msg2 = " Hey {} !, Passez lui le bonjour !"
+Msg3 = " Sanoude mon petit Hypocampe {} (cai gaynen)"
+Msg4 = " {} est arrive, apportez lui une part de pizza !"
+Msg5 = " Puceau n'1 ({}) a join le GANG GANG"
+Msg6 = " Salut {} !, On est a court de Pizza, t'en as ?"
+
+Quit1 = " Au revoir {}, Tu va nous manquer ;("
+Quit2 = " Ah non hun, {} A leave, ptn les boules eh"
+Quit3 = " Ciao mi amigo {}"
+Quit4 = " {} a quitter, t'facon, tu puais"
+Quit5 = " Bon, {} nous laisse en plan :/"
 
 # Server Name
 servername = "Secure Speak"
@@ -43,8 +57,17 @@ def handle(client):
                 clients.remove(client)
                 client.close()
                 nickname = nicknames[index]
-                quitbrodmsg = (f' {(Fore.LIGHTBLUE_EX + nickname + Fore.RESET)} A Quitté le salon speak ({(Fore.LIGHTBLUE_EX + servername + Fore.RESET)})'.encode('utf-8'))
-                quitbrodmsgcrypt = base64.b85encode(quitbrodmsg)
+
+                Quitz1 = Quit1.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+                Quitz2 = Quit2.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+                Quitz3 = Quit3.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+                Quitz4 = Quit4.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+                Quitz5 = Quit5.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+
+                QuitMsgs = [Quitz1, Quitz2, Quitz3, Quitz4, Quitz5]
+
+                QuitMsg = (Fore.LIGHTRED_EX + str(" (System) " + Fore.RESET + "-") + (random.choice(QuitMsgs))).encode('utf-8')
+                quitbrodmsgcrypt = base64.b85encode(QuitMsg)
                 broadcast(quitbrodmsgcrypt)
                 nicknames.remove(nickname)
                 break
@@ -55,6 +78,7 @@ def receive():
         # Accept Connection
         client, address = server.accept()
         print(" ")
+        print(address)
 
         version = client.recv(1024).decode('utf-8')
         print(f"Version is : {version}")
@@ -82,12 +106,23 @@ def receive():
         nicknames.append(nickname)
         clients.append(client)
 
+        Join1 = Msg1.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+        Join2 = Msg2.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+        Join3 = Msg3.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+        Join4 = Msg4.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+        Join5 = Msg5.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+        Join6 = Msg6.format(Fore.LIGHTYELLOW_EX + nickname + Fore.RESET)
+
+        JoinMsgs = [Join1, Join2, Join3, Join4, Join5, Join6]
+
         # Print And Broadcast Nickname
         print("Nickname is {}".format(nickname))
-        joinbrodmsg = (f" {(Fore.LIGHTBLUE_EX + nickname + Fore.RESET)} A Rejoint le server speak ({(Fore.LIGHTBLUE_EX + servername + Fore.RESET)})".encode('utf-8'))
-        joinbrodmsgecrypt = base64.b85encode(joinbrodmsg)
-        broadcast(joinbrodmsgecrypt)
-        clientmsg = (f' Connecté au serveur {(Fore.LIGHTBLUE_EX + servername + Fore.RESET)}'.encode('utf-8'))
+        def JOINMSGLIKEAPRO():
+            JoinMsg = ((Fore.LIGHTRED_EX + str(" (System) " + Fore.RESET + "-") + Fore.RESET) + (random.choice(JoinMsgs))).encode('utf-8')
+            joinbrodmsgecrypt = base64.b85encode(JoinMsg)
+            broadcast(joinbrodmsgecrypt)
+        JOINMSGLIKEAPRO()
+        clientmsg = (f'{Fore.LIGHTRED_EX + str(" (System) " + Fore.RESET + "- ") + Fore.RESET}Connecté au serveur {(Fore.LIGHTBLUE_EX + servername + Fore.RESET)}'.encode('utf-8'))
         clientmsgcrypt = base64.b85encode(clientmsg)
         client.send(clientmsgcrypt)
 
