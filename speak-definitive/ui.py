@@ -1,7 +1,7 @@
-import os, sys, time, terminaltables
-from terminaltables import SingleTable
+import os, time
 from colorama import Fore, init
 import getpass
+import socket
 import subprocess as sp
 
 def times():
@@ -14,6 +14,16 @@ def clear():
 		return os.system('cls')
 	else:
 		return os.system('clear')
+
+def check_host():
+    version = 'HOST_CHECK'
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex(('vps-1f21facc.vps.ovh.net', 6677))
+    if result == 0:
+        ver = sock.send(version.encode('utf-8'))
+        return str(Fore.LIGHTGREEN_EX + "Online" + Fore.RESET)
+    else:
+        return str(Fore.LIGHTRED_EX + "Offline" + Fore.RESET)
 
 if os.name == 'nt':
     init(convert=True)
@@ -53,7 +63,7 @@ class Menu():
             str(smoke_layer2),
             str("     Heure : [" + Fore.LIGHTBLUE_EX + times() + Fore.RESET + str("]")),
             str("     Utilisateur (PC) : [" + Fore.LIGHTBLUE_EX + str(user) + Fore.RESET + str("]")),
-            str("     Statut Serveur : [" + Fore.LIGHTGREEN_EX + str("ONLINE") + Fore.RESET + str("]")),
+            str("     Statut Serveur : [") + check_host() + str("]"),
             str(design_txt_layer_1),
             str(design_txt_layer_2),
             str(design_txt_layer_3),
