@@ -100,7 +100,8 @@ def client_speak(nickname):
         while True:
             if stop_thread:
                 break
-            message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
+            writer = getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET)
+            message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, writer)
             encoded_message = message.encode('utf-8')
             msgcrypt = base64.b85encode(encoded_message)
             client.send(msgcrypt)
