@@ -143,18 +143,22 @@ def Choice_Color(nickname):
     print(f"""
     Couleur du pseudo :
 
-        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu Clair (Default)
         [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Rose
         [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
         [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
         [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
         [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Rouge
         [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : Cyan
+        [{Fore.LIGHTBLUE_EX + str("8") + Fore.RESET}] : Bleu
 
     """)
     color_choice = input(" Votre choix : ")
 
     if color_choice == '1':
+        color = Fore.LIGHTBLUE_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '':
         color = Fore.LIGHTBLUE_EX
         Ip_Select(nick=nickname, color_choice=color)
     elif color_choice == '2':
@@ -174,6 +178,9 @@ def Choice_Color(nickname):
         Ip_Select(nick=nickname, color_choice=color)
     elif color_choice == '7':
         color = Fore.LIGHTCYAN_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '8':
+        color = Fore.BLUE
         Ip_Select(nick=nickname, color_choice=color)
     else:
         print(" ")
