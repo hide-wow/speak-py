@@ -78,7 +78,6 @@ def receive():
         # Accept Connection
         client, address = server.accept()
         print(" ")
-        print(address)
 
         version = client.recv(1024).decode('utf-8')
         print(f"Version is : {version}")
