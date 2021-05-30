@@ -33,7 +33,7 @@ def speakrpc():
     if rpc_choice == '1':
         stats.rpcstat = True
         rpc.connect()
-        rpc.update(state="In the menus",details=f"terminal chat",large_image="logo",large_text="secure, encrypted", start=time.time())
+        rpc.update(state="In the menus",details=f"terminal chat",large_image="logo",large_text="secure, encrypted", start=time.time(), buttons = [{"label": "Git", "url": "https://github.com/Steraky/speak-py"}])
         pass
     elif rpc_choice == '2':
         pass
@@ -42,8 +42,8 @@ def speakrpc():
         sleep(3.0)
         speakrpc()
 
-def speakchatrpc(servername,username):
+def speakchatrpc(servername,username,description):
     if stats.rpcstat == True:
-        rpc.update(state=f"In a server : {servername}",details=f"Name is : {username}",large_image="logo",large_text="Windows Version. Sercure, Encrypted", start=time.time())
+        rpc.update(state=f"In a server : {servername}",details=f"Name is : {username}",large_image="logo",large_text=description, start=time.time(), buttons = [{"label": "Git", "url": "https://github.com/Steraky/speak-py"}])
     else:
         pass
