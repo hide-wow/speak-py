@@ -23,10 +23,10 @@ Quit4 = " {} a quitter, t'facon, tu puais"
 Quit5 = " Bon, {} nous laisse en plan :/"
 
 # Server Name
-servername = "Speak.py Official"
+servername = "Speak.py User Server"
 
 # Server Stat
-serverstat = "Serveur Officiel de Speak.py"
+serverstat = "User Serveur de Speak.py"
 
 # Starting Server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
