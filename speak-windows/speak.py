@@ -283,6 +283,29 @@ def Choix():
         state.need_ip_port = True
         Nick_Choice()
 
+    elif choice == 'credits':
+        clear()
+        print(f"""
+        
+        /$$$$$$                            /$$ /$$   /$$             
+       /$$__  $$                          | $$|__/  | $$             
+      | $$  \__/  /$$$$$$   /$$$$$$   /$$$$$$$ /$$ /$$$$$$   /$$$$$$$
+      | $$       /$$__  $$ /$$__  $$ /$$__  $$| $$|_  $$_/  /$$_____/
+      | $$      | $$  \__/| $$$$$$$$| $$  | $$| $$  | $$   |  $$$$$$ 
+      | $$    $$| $$      | $$_____/| $$  | $$| $$  | $$ /$$\____  $$
+      |  $$$$$$/| $$      |  $$$$$$$|  $$$$$$$| $$  |  $$$$//$$$$$$$/
+       \______/ |__/       \_______/ \_______/|__/   \___/ |_______/ 
+                                                               
+                                                               
+      Credits :
+
+      {str("Director : ") + Fore.LIGHTBLUE_EX + str("ezby") + Fore.RESET}
+      {str("Developper : ") + Fore.LIGHTBLUE_EX + str("Steraky / Hide") + Fore.RESET}
+      {str("Beta tester : ") + Fore.MAGENTA + str("Orizon's, Rocher Coco, Neko, tamashi, punchnox, ThePillow, Courgette, Vendetta, Yamass") + Fore.RESET}
+
+""")
+        sleep(20000)
+
     else:
         print(" ")
         print("  " + warn + "Erreur x-x")
