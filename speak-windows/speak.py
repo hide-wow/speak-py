@@ -21,6 +21,7 @@ speakrpc()
 stop_thread = False
 
 warn = ("  [" + Fore.LIGHTRED_EX + "!" + Fore.RESET + "] ")
+info = ("  [" + Fore.BLUE + "*" + Fore.RESET + "] ")
 
 user = getpass.getuser()
 
@@ -125,7 +126,8 @@ def client_speak(nickname, ip, port, color):
         print(warn + "Une erreure s'est produite!")
         sleep(1.5)
         clear()
-        sys.exit(" Disconnected")
+        print(" ")
+        sys.exit(info + "Disconnected")
 
 
 def Ip_Select(nick, color_choice):
@@ -158,8 +160,8 @@ def Choice_Color(nickname):
     [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
     [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
     [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
-    [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Red
-    [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : White
+    [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Rouge
+    [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : Cyan
 
     """)
     color_choice = input(" Votre choix : ")
@@ -183,7 +185,7 @@ def Choice_Color(nickname):
         color = Fore.LIGHTRED_EX
         Ip_Select(nick=nickname, color_choice=color)
     elif color_choice == '7':
-        color = Fore.Fore.WHITE
+        color = Fore.LIGHTCYAN_EX
         Ip_Select(nick=nickname, color_choice=color)
     else:
         print(" ")
@@ -215,7 +217,7 @@ def Nick_Choice():
         nickname = str(randomchoice)
         print(" ")
         print(" Votre nom d'utilisateur : %s" % (nickname))
-        sleep(1.5)
+        sleep(0.8)
         clear()
         print(Menu.design_ui)
         Choice_Color(nickname=nickname)
@@ -227,14 +229,14 @@ def Nick_Choice():
         if nickname == '':
             print(" ")
             print("  " + warn + "Erreur x-x")
-            sleep(1.5)
+            sleep(0.8)
             clear()
             print(Menu.design_ui)
             Messages()
             Choix()
             pass
         else:
-            sleep(1.5)
+            sleep(0.8)
             clear()
             print(Menu.design_ui)
             Choice_Color(nickname=nickname)
@@ -243,7 +245,7 @@ def Nick_Choice():
         nickname = str(user)
         print(" ")
         print(" Votre nom d'utilisateur : %s" % (nickname))
-        sleep(1.5)
+        sleep(0.8)
         clear()
         print(Menu.design_ui)
         Choice_Color(nickname=nickname)
