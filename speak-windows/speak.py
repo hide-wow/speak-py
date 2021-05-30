@@ -1,12 +1,11 @@
 from ui import Menu
 import requests, re, json
-import os, sys, time
+import os, sys, time, terminaltables
 from terminaltables import SingleTable
 from colorama import Fore, init
 from time import sleep
 import random
 import getpass
-from rpc import speakrpc, stats, speakchatrpc
 import base64
 import socket
 import threading
@@ -14,9 +13,7 @@ import threading
 class state():
     need_ip_port = True
 
-version = "DISCORDi"
-
-speakrpc()
+version = 'DEFINITIVE'
 
 stop_thread = False
 
@@ -59,74 +56,58 @@ def Messages():
 Messages()
 
 def client_speak(nickname, ip, port, color):
-    try:
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_connection = client.connect((str(ip),int(port)))
-        ver = client.send(version.encode('utf-8'))
+    # Connecting To Server
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_connection = client.connect((str(ip),int(port)))
+    ver = client.send(version.encode('utf-8'))
+    # Listening to Server and Sending Nickname
+    def receive():
+        while True:
+            global stop_thread
+            if stop_thread:
+                break
+            try:
+                # Receive Message From Server
+                # If 'NICK' Send Nickname
+                message = client.recv(1024).decode('utf-8')
+                if message == 'NICK':
+                    encodenick = nickname.encode('utf-8')
+                    cryptnick = base64.b85encode(encodenick)
+                    client.send(cryptnick)
+                    next_message = client.recv(1024).decode('utf-8')
+                    if next_message == 'BAN':
+                        print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
+                        client.close()
+                        stop_thread = True
+                else:
+                    print(" ")
+                    messagedecrypt = base64.b85decode(message)
+                    messagedecode = messagedecrypt.decode('utf-8')
+                    print(messagedecode)
+                    print(" ")
+            except:
+                # Close Connection When Error
+                print(warn + "Une erreure s'est produite!")
+                client.close()
+                break
 
-        serv = client.recv(1024).decode('utf-8')
-        decryptserv = base64.b85decode(serv)
-        decodeserv = decryptserv.decode('utf-8')
+    # Sending Messages To Server
+    def write():
+        while True:
+            if stop_thread:
+                break
+            writer = getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET)
+            message = ' - {}: {}'.format(color + nickname + Fore.RESET, writer)
+            encoded_message = message.encode('utf-8')
+            msgcrypt = base64.b85encode(encoded_message)
+            client.send(msgcrypt)
 
-        description = client.recv(1024).decode('utf-8')
-        decrypt_description = base64.b85decode(description)
-        decode_description = decrypt_description.decode('utf-8')
+    # Starting Threads For Listening And Writing
+    receive_thread = threading.Thread(target=receive)
+    receive_thread.start()
 
-        speakchatrpc(servername=decodeserv,username=nickname,description=decode_description)
-        # Listening to Server and Sending Nickname
-        def receive():
-            while True:
-                global stop_thread
-                if stop_thread:
-                    break
-                try:
-                    # Receive Message From Server
-                    # If 'NICK' Send Nickname
-                    message = client.recv(1024).decode('utf-8')
-                    if message == 'NICK':
-                        encodenick = nickname.encode('utf-8')
-                        cryptnick = base64.b85encode(encodenick)
-                        client.send(cryptnick)
-                        next_message = client.recv(1024).decode('utf-8')
-                        if next_message == 'BAN':
-                            print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
-                            client.close()
-                            stop_thread = True
-                    else:
-                        print(" ")
-                        messagedecrypt = base64.b85decode(message)
-                        messagedecode = messagedecrypt.decode('utf-8')
-                        print(messagedecode)
-                        print(" ")
-                except:
-                    # Close Connection When Error
-                    print(warn + "Une erreure s'est produite!")
-                    client.close()
-                    break
-
-        # Sending Messages To Server
-        def write():
-            while True:
-                if stop_thread:
-                    break
-                message = ' - {}: {}'.format(color + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
-                encoded_message = message.encode('utf-8')
-                msgcrypt = base64.b85encode(encoded_message)
-                client.send(msgcrypt)
-
-        # Starting Threads For Listening And Writing
-        receive_thread = threading.Thread(target=receive)
-        receive_thread.start()
-
-        write_thread = threading.Thread(target=write)
-        write_thread.start()
-    except:
-        print(" ")
-        print(warn + "Une erreure s'est produite!")
-        sleep(1.5)
-        clear()
-        sys.exit(" Disconnected")
-
+    write_thread = threading.Thread(target=write)
+    write_thread.start()
 
 def Ip_Select(nick, color_choice):
     if state.need_ip_port == True:
