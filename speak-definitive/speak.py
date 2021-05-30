@@ -143,13 +143,13 @@ def Choice_Color(nickname):
     print(f"""
     Couleur du pseudo :
 
-    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu
-    [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Rose
-    [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
-    [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
-    [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
-    [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Rouge
-    [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : Cyan
+        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu
+        [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Rose
+        [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
+        [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
+        [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
+        [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Rouge
+        [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : Cyan
 
     """)
     color_choice = input(" Votre choix : ")
@@ -287,7 +287,7 @@ def Choix():
                                                                
       Credits :
 
-      {str("Director : ") + Fore.LIGHTBLUE_EX + str("ezby") + Fore.RESET}
+      {str("Director : ") + Fore.LIGHTRED_EX + str("ezby") + Fore.RESET}
       {str("Developper : ") + Fore.LIGHTBLUE_EX + str("Steraky / Hide") + Fore.RESET}
       {str("Beta tester : ") + Fore.MAGENTA + str("Orizon's, Rocher Coco, Neko, tamashi, punchnox, ThePillow, Courgette, Vendetta, Yamass") + Fore.RESET}
 
