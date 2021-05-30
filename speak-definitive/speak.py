@@ -10,6 +10,9 @@ import base64
 import socket
 import threading
 
+class state():
+    need_ip_port = True
+
 version = 'DEFINITIVE'
 
 stop_thread = False
@@ -52,16 +55,9 @@ def Messages():
     print("\n"+table.table)
 Messages()
 
-def client_speak(nickname):
+def client_speak(nickname, ip, port):
     # Connecting To Server
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print(" ")
-    ip = input(" Ip du serveur speak : ")
-    print(" ")
-    port = input(" Port du serveur speak : ")
-    clear()
-    print(Menu.design_ui)
-    print(" ")
     server_connection = client.connect((str(ip),int(port)))
     ver = client.send(version.encode('utf-8'))
     # Listening to Server and Sending Nickname
@@ -113,10 +109,90 @@ def client_speak(nickname):
     write_thread = threading.Thread(target=write)
     write_thread.start()
 
+def Ip_Select(nick):
+    if state.need_ip_port == True:
+        print(" ")
+        ip = input(" Ip du serveur speak : ")
+        print(" ")
+        port = input(" Port du serveur speak : ")
+        clear()
+        print(Menu.design_ui)
+        print(" ")
+        client_speak(nickname=nick, ip=ip, port=port)
+    else:
+        ip = 'vps-1f21facc.vps.ovh.net'
+        port = 6677
+        client_speak(nickname=nick, ip=ip, port=port)
+
+
+def Nick_Choice():
+    # Choosing Nickname
+    print(f"""
+    Nom d'utilisateur :
+
+    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
+    [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
+    [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
+
+    """)
+    nick_choice = input(" Votre choix : ")
+
+    if nick_choice == '1':
+        url = "http://names.drycodes.com/10?nameOptions=all"
+        data = requests.get(url).content.decode('utf-8')
+        values = json.loads(data)
+        randomchoice = random.choice(values)
+        nickname = str(randomchoice)
+        print(" ")
+        print(" Votre nom d'utilisateur : %s" % (nickname))
+        sleep(1.5)
+        clear()
+        print(Menu.design_ui)
+        Ip_Select(nick=nickname)
+
+    elif nick_choice == '2':
+        print(" ")
+        name = input(" Nouveau nom d'utilisateur : ")
+        nickname = str(name)
+        if nickname == '':
+            print(" ")
+            print("  " + warn + "Erreur x-x")
+            sleep(1.5)
+            clear()
+            print(Menu.design_ui)
+            Messages()
+            Choix()
+            pass
+        else:
+            sleep(1.5)
+            clear()
+            print(Menu.design_ui)
+            Ip_Select(nick=nickname)
+
+    elif nick_choice == '3':
+        nickname = str(user)
+        print(" ")
+        print(" Votre nom d'utilisateur : %s" % (nickname))
+        sleep(1.5)
+        clear()
+        print(Menu.design_ui)
+        Ip_Select(nick=nickname)
+    else:
+        print(" ")
+        print("  " + warn + "Erreur x-x")
+        sleep(1.5)
+        clear()
+        print(Menu.design_ui)
+        Messages()
+        Choix()
+        pass
+
 def Choix():
     print(f"""
 
-    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] Connection a un serveur speak
+    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] Serveur speak Officiel
+    
+    [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] Connection a un Serveur Speak non-officiel
 
     """
     )
@@ -126,67 +202,14 @@ def Choix():
     if choice == '1':
         clear()
         print(Menu.design_ui)
+        state.need_ip_port = False
+        Nick_Choice()
 
-        # Choosing Nickname
-        print(f"""
-        Nom d'utilisateur :
-
-        [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Au hazard
-        [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Nom au choix
-        [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Nom de l'user du pc
-
-        """)
-        nick_choice = input(" Votre choix : ")
-
-        if nick_choice == '1':
-            url = "http://names.drycodes.com/10?nameOptions=all"
-            data = requests.get(url).content.decode('utf-8')
-            values = json.loads(data)
-            randomchoice = random.choice(values)
-            nickname = str(randomchoice)
-            print(" ")
-            print(" Votre nom d'utilisateur : %s" % (nickname))
-            sleep(1.5)
-            clear()
-            print(Menu.design_ui)
-            client_speak(nickname=nickname)
-
-        elif nick_choice == '2':
-            print(" ")
-            name = input(" Nouveau nom d'utilisateur : ")
-            nickname = str(name)
-            if nickname == '':
-                print(" ")
-                print("  " + warn + "Erreur x-x")
-                sleep(1.5)
-                clear()
-                print(Menu.design_ui)
-                Messages()
-                Choix()
-                pass
-            else:
-                sleep(1.5)
-                clear()
-                print(Menu.design_ui)
-                client_speak(nickname=nickname)
-
-        elif nick_choice == '3':
-            nickname = str(user)
-            print(" ")
-            print(" Votre nom d'utilisateur : %s" % (nickname))
-            sleep(1.5)
-            clear()
-            print(Menu.design_ui)
-            client_speak(nickname=nickname)
-        else:
-            print(" ")
-            print("  " + warn + "Erreur x-x")
-            sleep(1.5)
-            clear()
-            print(Menu.design_ui)
-            Messages()
-            Choix()
-            pass
+    elif choice == '2':
+        clear()
+        print(Menu.design_ui)
+        state.need_ip_port = True
+        Nick_Choice()
 
     else:
         print(" ")
