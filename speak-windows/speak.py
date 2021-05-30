@@ -58,69 +58,77 @@ def Messages():
     print("\n"+table.table)
 Messages()
 
-def client_speak(nickname, ip, port):
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_connection = client.connect((str(ip),int(port)))
-    ver = client.send(version.encode('utf-8'))
+def client_speak(nickname, ip, port, color):
+    try:
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_connection = client.connect((str(ip),int(port)))
+        ver = client.send(version.encode('utf-8'))
 
-    serv = client.recv(1024).decode('utf-8')
-    decryptserv = base64.b85decode(serv)
-    decodeserv = decryptserv.decode('utf-8')
+        serv = client.recv(1024).decode('utf-8')
+        decryptserv = base64.b85decode(serv)
+        decodeserv = decryptserv.decode('utf-8')
 
-    description = client.recv(1024).decode('utf-8')
-    decrypt_description = base64.b85decode(description)
-    decode_description = decrypt_description.decode('utf-8')
+        description = client.recv(1024).decode('utf-8')
+        decrypt_description = base64.b85decode(description)
+        decode_description = decrypt_description.decode('utf-8')
 
-    speakchatrpc(servername=decodeserv,username=nickname,description=decode_description)
-    # Listening to Server and Sending Nickname
-    def receive():
-        while True:
-            global stop_thread
-            if stop_thread:
-                break
-            try:
-                # Receive Message From Server
-                # If 'NICK' Send Nickname
-                message = client.recv(1024).decode('utf-8')
-                if message == 'NICK':
-                    encodenick = nickname.encode('utf-8')
-                    cryptnick = base64.b85encode(encodenick)
-                    client.send(cryptnick)
-                    next_message = client.recv(1024).decode('utf-8')
-                    if next_message == 'BAN':
-                        print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
-                        client.close()
-                        stop_thread = True
-                else:
-                    print(" ")
-                    messagedecrypt = base64.b85decode(message)
-                    messagedecode = messagedecrypt.decode('utf-8')
-                    print(messagedecode)
-                    print(" ")
-            except:
-                # Close Connection When Error
-                print(warn + "Une erreure s'est produite!")
-                client.close()
-                break
+        speakchatrpc(servername=decodeserv,username=nickname,description=decode_description)
+        # Listening to Server and Sending Nickname
+        def receive():
+            while True:
+                global stop_thread
+                if stop_thread:
+                    break
+                try:
+                    # Receive Message From Server
+                    # If 'NICK' Send Nickname
+                    message = client.recv(1024).decode('utf-8')
+                    if message == 'NICK':
+                        encodenick = nickname.encode('utf-8')
+                        cryptnick = base64.b85encode(encodenick)
+                        client.send(cryptnick)
+                        next_message = client.recv(1024).decode('utf-8')
+                        if next_message == 'BAN':
+                            print(Fore.LIGHTRED_EX + " Vous avez été Banni de speak par un Administrateur")
+                            client.close()
+                            stop_thread = True
+                    else:
+                        print(" ")
+                        messagedecrypt = base64.b85decode(message)
+                        messagedecode = messagedecrypt.decode('utf-8')
+                        print(messagedecode)
+                        print(" ")
+                except:
+                    # Close Connection When Error
+                    print(warn + "Une erreure s'est produite!")
+                    client.close()
+                    break
 
-    # Sending Messages To Server
-    def write():
-        while True:
-            if stop_thread:
-                break
-            message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
-            encoded_message = message.encode('utf-8')
-            msgcrypt = base64.b85encode(encoded_message)
-            client.send(msgcrypt)
+        # Sending Messages To Server
+        def write():
+            while True:
+                if stop_thread:
+                    break
+                message = ' - {}: {}'.format(color + nickname + Fore.RESET, getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET))
+                encoded_message = message.encode('utf-8')
+                msgcrypt = base64.b85encode(encoded_message)
+                client.send(msgcrypt)
 
-    # Starting Threads For Listening And Writing
-    receive_thread = threading.Thread(target=receive)
-    receive_thread.start()
+        # Starting Threads For Listening And Writing
+        receive_thread = threading.Thread(target=receive)
+        receive_thread.start()
 
-    write_thread = threading.Thread(target=write)
-    write_thread.start()
+        write_thread = threading.Thread(target=write)
+        write_thread.start()
+    except:
+        print(" ")
+        print(warn + "Une erreure s'est produite!")
+        sleep(1.5)
+        clear()
+        sys.exit(" Disconnected")
 
-def Ip_Select(nick):
+
+def Ip_Select(nick, color_choice):
     if state.need_ip_port == True:
         print(" ")
         ip = input(" Ip du serveur speak : ")
@@ -129,12 +137,63 @@ def Ip_Select(nick):
         clear()
         print(Menu.design_ui)
         print(" ")
-        client_speak(nickname=nick, ip=ip, port=port)
+        client_speak(nickname=nick, ip=ip, port=port, color=color_choice)
     else:
+        clear()
+        print(Menu.design_ui)
+        print(" ")
         ip = 'vps-1f21facc.vps.ovh.net'
         port = 6677
-        client_speak(nickname=nick, ip=ip, port=port)
+        client_speak(nickname=nick, ip=ip, port=port, color=color_choice)
 
+def Choice_Color(nickname):
+    clear()
+    print(Menu.design_ui)
+    print(" ")
+    print(f"""
+    Couleur du pseudo :
+
+    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu
+    [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Rose
+    [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
+    [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
+    [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
+    [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Red
+    [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : White
+
+    """)
+    color_choice = input(" Votre choix : ")
+
+    if color_choice == '1':
+        color = Fore.LIGHTBLUE_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '2':
+        color = Fore.LIGHTMAGENTA_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '3':
+        color = Fore.YELLOW
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '4':
+        color = Fore.MAGENTA
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '5':
+        color = Fore.LIGHTGREEN_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '6':
+        color = Fore.LIGHTRED_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '7':
+        color = Fore.Fore.WHITE
+        Ip_Select(nick=nickname, color_choice=color)
+    else:
+        print(" ")
+        print("  " + warn + "Erreur x-x")
+        sleep(1.5)
+        clear()
+        print(Menu.design_ui)
+        Messages()
+        Choix()
+        pass
 
 def Nick_Choice():
     # Choosing Nickname
@@ -159,7 +218,7 @@ def Nick_Choice():
         sleep(1.5)
         clear()
         print(Menu.design_ui)
-        Ip_Select(nick=nickname)
+        Choice_Color(nickname=nickname)
 
     elif nick_choice == '2':
         print(" ")
@@ -178,7 +237,7 @@ def Nick_Choice():
             sleep(1.5)
             clear()
             print(Menu.design_ui)
-            Ip_Select(nick=nickname)
+            Choice_Color(nickname=nickname)
 
     elif nick_choice == '3':
         nickname = str(user)
@@ -187,7 +246,7 @@ def Nick_Choice():
         sleep(1.5)
         clear()
         print(Menu.design_ui)
-        Ip_Select(nick=nickname)
+        Choice_Color(nickname=nickname)
     else:
         print(" ")
         print("  " + warn + "Erreur x-x")
