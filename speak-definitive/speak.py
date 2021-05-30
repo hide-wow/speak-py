@@ -47,15 +47,15 @@ def Messages():
     TABLE_DATA.append(private_messages)
     private_messages = (Fore.LIGHTYELLOW_EX + "News :" + Fore.RESET, Fore.LIGHTBLACK_EX + "Grosse Update :" + Fore.RESET)
     TABLE_DATA.append(private_messages) 
-    private_messages = (" ", Fore.LIGHTBLACK_EX + "Messages Randoms de bienvenue ect" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Pseudo En Couleur" + Fore.RESET)
     TABLE_DATA.append(private_messages)
-    private_messages = (" ", Fore.LIGHTBLACK_EX + "Amelioration de la rpc" + Fore.RESET)
+    private_messages = (" ", Fore.LIGHTBLACK_EX + "Code Optimised" + Fore.RESET)
     TABLE_DATA.append(private_messages)
     table = SingleTable(TABLE_DATA)
     print("\n"+table.table)
 Messages()
 
-def client_speak(nickname, ip, port):
+def client_speak(nickname, ip, port, color):
     # Connecting To Server
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_connection = client.connect((str(ip),int(port)))
@@ -97,7 +97,7 @@ def client_speak(nickname, ip, port):
             if stop_thread:
                 break
             writer = getpass.getpass(Fore.LIGHTBLACK_EX +" Vous ↓ :"+ Fore.RESET)
-            message = ' - {}: {}'.format(Fore.LIGHTBLUE_EX + nickname + Fore.RESET, writer)
+            message = ' - {}: {}'.format(color + nickname + Fore.RESET, writer)
             encoded_message = message.encode('utf-8')
             msgcrypt = base64.b85encode(encoded_message)
             client.send(msgcrypt)
@@ -109,7 +109,7 @@ def client_speak(nickname, ip, port):
     write_thread = threading.Thread(target=write)
     write_thread.start()
 
-def Ip_Select(nick):
+def Ip_Select(nick, color_choice):
     if state.need_ip_port == True:
         print(" ")
         ip = input(" Ip du serveur speak : ")
@@ -118,12 +118,63 @@ def Ip_Select(nick):
         clear()
         print(Menu.design_ui)
         print(" ")
-        client_speak(nickname=nick, ip=ip, port=port)
+        client_speak(nickname=nick, ip=ip, port=port, color=color_choice)
     else:
+        clear()
+        print(Menu.design_ui)
+        print(" ")
         ip = 'vps-1f21facc.vps.ovh.net'
         port = 6677
-        client_speak(nickname=nick, ip=ip, port=port)
+        client_speak(nickname=nick, ip=ip, port=port, color=color_choice)
 
+def Choice_Color(nickname):
+    clear()
+    print(Menu.design_ui)
+    print(" ")
+    print(f"""
+    Couleur du pseudo :
+
+    [{Fore.LIGHTBLUE_EX + str("1") + Fore.RESET}] : Bleu
+    [{Fore.LIGHTBLUE_EX + str("2") + Fore.RESET}] : Rose
+    [{Fore.LIGHTBLUE_EX + str("3") + Fore.RESET}] : Jaune
+    [{Fore.LIGHTBLUE_EX + str("4") + Fore.RESET}] : Violet
+    [{Fore.LIGHTBLUE_EX + str("5") + Fore.RESET}] : Vert
+    [{Fore.LIGHTBLUE_EX + str("6") + Fore.RESET}] : Red
+    [{Fore.LIGHTBLUE_EX + str("7") + Fore.RESET}] : White
+
+    """)
+    color_choice = input(" Votre choix : ")
+
+    if color_choice == '1':
+        color = Fore.LIGHTBLUE_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '2':
+        color = Fore.LIGHTMAGENTA_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '3':
+        color = Fore.YELLOW
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '4':
+        color = Fore.MAGENTA
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '5':
+        color = Fore.LIGHTGREEN_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '6':
+        color = Fore.LIGHTRED_EX
+        Ip_Select(nick=nickname, color_choice=color)
+    elif color_choice == '7':
+        color = Fore.Fore.WHITE
+        Ip_Select(nick=nickname, color_choice=color)
+    else:
+        print(" ")
+        print("  " + warn + "Erreur x-x")
+        sleep(1.5)
+        clear()
+        print(Menu.design_ui)
+        Messages()
+        Choix()
+        pass
 
 def Nick_Choice():
     # Choosing Nickname
@@ -148,7 +199,7 @@ def Nick_Choice():
         sleep(1.5)
         clear()
         print(Menu.design_ui)
-        Ip_Select(nick=nickname)
+        Choice_Color(nickname=nickname)
 
     elif nick_choice == '2':
         print(" ")
@@ -167,7 +218,7 @@ def Nick_Choice():
             sleep(1.5)
             clear()
             print(Menu.design_ui)
-            Ip_Select(nick=nickname)
+            Choice_Color(nickname=nickname)
 
     elif nick_choice == '3':
         nickname = str(user)
@@ -176,7 +227,7 @@ def Nick_Choice():
         sleep(1.5)
         clear()
         print(Menu.design_ui)
-        Ip_Select(nick=nickname)
+        Choice_Color(nickname=nickname)
     else:
         print(" ")
         print("  " + warn + "Erreur x-x")
