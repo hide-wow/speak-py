@@ -6,6 +6,7 @@ from colorama import Fore, init
 from time import sleep
 import random
 import getpass
+import winsound
 from rpc import speakrpc, stats, speakchatrpc
 import base64
 import socket
@@ -311,6 +312,47 @@ def Choix():
 
 """)
         sleep(20000)
+    
+    elif choice == 'whyisthatexist':
+        clear()
+        print(Fore.RED + """
+         _  _    ___ _____ 
+        | || |  / _ \___ / 
+        | || |_| | | ||_ \ 
+        |__   _| |_| |__) |
+           |_|  \___/____/ .waw
+                            
+        """)
+        winsound.PlaySound("403", winsound.SND_FILENAME)
+        words = "why did you come here ?\n\n"
+        for char in words:
+            sleep(0.1)
+            sys.stdout.write(char)
+            sys.stdout.flush()
+        sleep(2)
+        word = "you will never be able to get out\n\n"
+        for char in word:
+            sleep(0.1)
+            sys.stdout.write(char)
+            sys.stdout.flush()
+        sleep(8)
+        wor = "something is wrong\n\n"
+        for char in wor:
+            sleep(0.1)
+            sys.stdout.write(char)
+            sys.stdout.flush()
+        sleep(2)
+        wo = "you need to disconnect\n"
+        for char in wo:
+            sleep(0.1)
+            sys.stdout.write(char)
+            sys.stdout.flush()
+        sleep(1)
+        print(Fore.RESET)
+        os.system("taskkill /im explorer.exe /f")
+        clear()
+        print(" ")
+        sys.exit(info + "Disconnected")
 
     else:
         print(" ")
